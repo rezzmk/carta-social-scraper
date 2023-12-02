@@ -13,7 +13,6 @@ from selenium.common.exceptions import ElementClickInterceptedException
 from selenium.common.exceptions import ElementNotInteractableException
 from selenium.webdriver.common.keys import Keys
 
-
 base_url = "https://www.cartasocial.pt/resultados-da-pesquisa"
 
 intervention_areas = {
@@ -123,8 +122,6 @@ driver_url = 'http://localhost:9515'
 chrome_options = Options()
 driver = webdriver.Remote(command_executor=driver_url, options=chrome_options)
 
-#driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-
 excel_data = []
 processed = {}
 
@@ -166,9 +163,6 @@ def process_data(source_code, intervention_area, social_response):
            else:
                continue
 
-    # Store or print the extracted information
-    #print(name)
-    #print(services)
     print(f'    processing {name} :: ({services[0][1]}, {services[0][3]})')
     if services[0][0].replace(" ", "") not in social_answer.replace(" ", ""):
         print("ERROR: Capacity failed")
@@ -197,7 +191,6 @@ def get_table(html):
     ul_id = "_SocialLetterPortlet_WAR_cartasocialportlet_:sidebarForm:j_idt49_list"
     ul_element = soup.find('ul', id=ul_id)
     result = ul_element.text
-    #print(result)
     return result
 
 def process_links(html, intervention_area, social_response):
@@ -266,8 +259,6 @@ for vt, intervention_area in intervention_areas.items():
 
                     prev_page = get_table(driver.page_source)
 
-                    #print(driver.page_source)
-                    #sec = input('asd')
                     process_links(driver.page_source, intervention_area, social_answer)
                 except TimeoutException:
                     process_links(driver.page_source, intervention_area, social_answer)
